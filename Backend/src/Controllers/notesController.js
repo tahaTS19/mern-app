@@ -1,15 +1,15 @@
-import Note from "../../Models/Note.js"
+import Note from "../../Models/Note.js";
 
 export async function getAllNotes (req, res) {
    try {
-    const notes = await Note.find().sort({createdAt: -1}); //newest first, -1 sorts in desc order
+    const notes = await Note.find({userId: req.user.id}).sort({createdAt: -1}); //newest first, -1 sorts in desc order
     res.status(200).json(notes);
 
    } catch (error) {
     console.error("Error in getAllNotes controller", error);
     res.status(500).json({message:"Internal Server Error"});
    }
- }
+ };
 
 export async function getNoteById(req, res) {
   try {
@@ -21,19 +21,21 @@ export async function getNoteById(req, res) {
     console.error("Error in getNoteById controller", error);
     res.status(500).json({message:"Internal Server Error"});
   }
-}
+};
 
 export async function createNote (req,res) {
   try {
     const {title,content} = req.body;
-    const note = new Note({title, content});
-    const savedNote = await note.save();
-    res.status(201).json(savedNote);
+    const newNote = new Note({title, content, userId: req.user.id});
+    await newNote.save();
+    res.status(201).json({
+      success: true, 
+      message: "Note created successfully"});
   } catch (error) {
     console.error("Error in createNote controller", error);
-    res.status(500).json({message:"Internal Server Error"});
+    res.status(500).json({message:"Error in creating note"});
   }
-}
+};
 
 export async function updateNote (req,res) {
   try {
@@ -53,7 +55,7 @@ export async function updateNote (req,res) {
     console.error("Error in updateNote controller", error);
     res.status(500).json({message:"Internal Server Error"});
   }
-}
+};
 
 export async function deleteNote (req,res) {
   try {
@@ -66,4 +68,4 @@ export async function deleteNote (req,res) {
     res.status(500).json({message:"Internal Server Error"});
   }
 
-}
+};

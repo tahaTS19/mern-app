@@ -1,10 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import cookieParser from "cookie-parser"; //new change
 
 import notesRoutes from "./Routes/notesRoutes.js";
 import { connectDB } from "../config/db.js";
 import rateLimiter from "./Middleware/rateLimiter.js";
+import authRoutes from "./Routes/authRoutes.js";
 
 dotenv.config();
 
@@ -16,7 +18,8 @@ const PORT = process.env.PORT || 5001
 //Middleware
 app.use(
   cors({
-    origin: "http://localhost:5173"
+    origin: ["http://localhost:5173"], //new change: [x]
+    credentials: true  //new change
   })
 );
 app.use(express.json());
@@ -27,7 +30,8 @@ app.use(rateLimiter);
 //   console.log(`Request method is ${req.method} & Request URL is ${req.url}`);
 //   next();
 // })
-
+app.use(cookieParser()); //new Change
+app.use("/api/auth", authRoutes)
 app.use("/api/notes", notesRoutes)
 
 connectDB().then(() => {

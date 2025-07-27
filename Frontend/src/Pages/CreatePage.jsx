@@ -19,12 +19,19 @@ const CreatePage = () => {
     }
     setLoading(true)
     try {
-      await api.post("/notes", {
+      const response = await api.post("/notes", {
         title,
         content
-      })
-      toast.success("Note created successfully");
-      navigate("/");
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (response.data.success) {
+        toast.success("Note created successfully");
+        navigate("/");
+      }
+      
     } catch (error) {
       console.log("Error Creating Note", error);
       if (error.response.status === 429) {
