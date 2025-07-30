@@ -5,9 +5,7 @@ import { validatePassword } from "../lib/utils";
 const PasswordInput = ({ value, onChange, placeholder = "Password" }) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  //New feature
   const isValid = validatePassword(value);
-  //New feature
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);

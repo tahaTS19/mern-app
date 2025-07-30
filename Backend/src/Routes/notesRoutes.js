@@ -10,8 +10,8 @@ router.get("/:id", getNoteById); //get one specific note
 
 router.post("/", middleware, createNote); //create a note
 
-//In put(update) and delete we need ".../:id" so we know what part to update or delete
 router.put("/:id", updateNote); //update a note
+
 router.delete("/:id", deleteNote); //delete a note
 
 export default router;

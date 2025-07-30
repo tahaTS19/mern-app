@@ -11,10 +11,7 @@ const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  // new change
   const [passwordTouched, setPasswordTouched] = useState(false);
-  // new change
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -56,10 +53,10 @@ const SignUpPage = () => {
 
   return (
 
-    <div className="min-h-screen flex items-center justify-center"> {/*layout chng*/}
+    <div className="min-h-screen flex items-center justify-center">
       <h3 className="fixed top-6 left-50">Welcome To</h3>
-      <h1 className="fixed top-10 left-50 text-4xl font-bold text-primary font-mono tracking-tight">ThinkBoard</h1>
-      <div className="container px-4"> {/*layout chng*/}
+      <h1 className="fixed top-10 left-50 text-4xl font-bold text-primary font-mono tracking-tight">NoteSpace</h1>
+      <div className="container px-4">
         <div className='max-w-md mx-auto'>
           <div className='card bg-base-300 bg-opacity-55 border border-green-950'>
             <div className='card-body'>
@@ -83,9 +80,7 @@ const SignUpPage = () => {
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
-                    // new change
                     if (!passwordTouched) setPasswordTouched(true);
-                    // new change
                   }}
                 />
                 

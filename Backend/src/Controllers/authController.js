@@ -7,16 +7,6 @@ dotenv.config();
 export async function registerUser(req, res) {
   try {
     const {name, email, password} = req.body;
-    
-    // if (!fullName) {
-    //   return res.status(400).json({error: true, message: "Full Name is required"});
-    // }
-    // if (!email) {
-    //   return res.status(400).json({error: true, message: "Email is required"});
-    // }
-    // if (!password) {
-    //   return res.status(400).json({error: true, message: "Password is required"});
-    // }
 
     const user = await User.findOne({email});
     if (user) {
@@ -69,10 +59,10 @@ export async function loginUser (req, res) {
     }
 
     const token = jwt.sign({ id: user._id }, process.env.KEY , {
-      expiresIn: "5h",
+      expiresIn: "1h",
     });
 
-    res.cookie('token', token, { httpOnly: true, maxAge: 18000000}) //new change
+    res.cookie('token', token, { httpOnly: true, maxAge: 3600000})
 
     return res.status(200).json({
       success: true,

@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import cookieParser from "cookie-parser"; //new change
+import cookieParser from "cookie-parser";
 
 import notesRoutes from "./Routes/notesRoutes.js";
 import { connectDB } from "../config/db.js";
@@ -18,19 +18,14 @@ const PORT = process.env.PORT || 5001
 //Middleware
 app.use(
   cors({
-    origin: ["http://localhost:5173"], //new change: [x]
-    credentials: true  //new change
+    origin: ["http://localhost:5173"],
+    credentials: true 
   })
 );
 app.use(express.json());
 app.use(rateLimiter);
 
-//Simple Custom Middleware
-// app.use((req, res, next) => {
-//   console.log(`Request method is ${req.method} & Request URL is ${req.url}`);
-//   next();
-// })
-app.use(cookieParser()); //new Change
+app.use(cookieParser());
 app.use("/api/auth", authRoutes)
 app.use("/api/notes", notesRoutes)
 

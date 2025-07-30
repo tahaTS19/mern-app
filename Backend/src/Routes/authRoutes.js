@@ -11,7 +11,6 @@ router.post("/login", loginUser);
 router.get("/verify", middleware, async (req, res) => {
   return res.status(200).json({success: true, user: req.user})
 });
-//__________________________________________
 
 router.post("/logout", (req, res) => {
   res.clearCookie("token", {
@@ -21,7 +20,5 @@ router.post("/logout", (req, res) => {
   });
   res.status(200).json({ message: "Logged out" });
 });
-//____________________________________________________
-
 
 export default router;
