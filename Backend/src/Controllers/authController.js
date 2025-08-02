@@ -62,7 +62,7 @@ export async function loginUser (req, res) {
       expiresIn: "30m",
     });
 
-    res.cookie('token', token, { httpOnly: true, maxAge: 1800000, secure:true, sameSite: "Strict"})
+    res.cookie('token', token, { httpOnly: true, maxAge: 1800000, secure:true, sameSite: "None"})
 
     return res.status(200).json({
       success: true,
